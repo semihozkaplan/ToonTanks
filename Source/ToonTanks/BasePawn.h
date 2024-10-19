@@ -18,6 +18,7 @@ public:
 protected:
 
 	void RotateTurret(FVector LookAtTarget);
+	void Fire();
 
 private:
 	// This is forward declaration, we are not including the header file in here, include it in the cpp file. 
