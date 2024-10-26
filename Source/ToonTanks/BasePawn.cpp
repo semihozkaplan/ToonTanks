@@ -3,10 +3,9 @@
 #include "BasePawn.h"
 #include "Components/CapsuleComponent.h"
 #include "Kismet/GameplayStatics.h"
-#include "DrawDebugHelpers.h"
+#include "Projectile.h"
 
  
-
 // Sets default values
 ABasePawn::ABasePawn()
 {
@@ -39,16 +38,11 @@ void ABasePawn::RotateTurret(FVector LookAtTarget)
 }
 
 void ABasePawn::Fire()
-{
-	DrawDebugSphere(
-		GetWorld(),
-		ProjectileSpawnPoint->GetComponentLocation(),
-		50.f,
-		12,
-		FColor::Red,
-		false,
-		3.f
-	);
+{	
+	FVector Location = ProjectileSpawnPoint->GetComponentLocation();
+	FRotator Rotation = ProjectileSpawnPoint->GetComponentRotation();
+	// SpawnActor function is a template function, so we need to specify the type of the actor we want to spawn.
+	GetWorld()->SpawnActor<AProjectile>(ProjectileClass, Location, Rotation);
 }
 
 
