@@ -23,13 +23,25 @@ AProjectile::AProjectile()
 void AProjectile::BeginPlay()
 {
 	Super::BeginPlay();
-	
+
+	// Adding a delegate to the OnHit event
+	// In this way, our function OnHit will be added in InvocationList of OnHit event to be called when the event is broadcasted.
+	// This is also usage of multi-cast delegate
+	ProjectileMesh->OnComponentHit.AddDynamic(this, &AProjectile::OnHit);
+
 }
 
 // Called every frame
 void AProjectile::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
+}
 
+void AProjectile::OnHit(UPrimitiveComponent* HitComp, AActor* OtherActor, UPrimitiveComponent* OtherComp, FVector NormalImpulse, const FHitResult& Hit)
+{
+	UE_LOG(LogTemp, Warning, TEXT("Projectile Hit Event"));
+	UE_LOG(LogTemp, Warning, TEXT("Hit Component: %s"), *HitComp->GetName());
+	UE_LOG(LogTemp, Warning, TEXT("Hit Actor Name: %s"), *OtherActor->GetName());
+	UE_LOG(LogTemp, Warning, TEXT("Hit Actor Comp Name: %s"), *OtherComp->GetName());
 }
 

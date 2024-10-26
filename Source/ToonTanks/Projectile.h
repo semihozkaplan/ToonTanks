@@ -29,4 +29,9 @@ private:
 
 	UPROPERTY(VisibleAnywhere, Category = "Movement")
 	class UProjectileMovementComponent* ProjectileMovement;
+
+	// This function will be called when the projectile hits something.
+	// The parameters are the components that hit, the actor that was hit, the component of the actor that was hit, the normal impulse of the hit, and the hit result.
+	UFUNCTION()
+	void OnHit(UPrimitiveComponent* HitComp, AActor* OtherActor, UPrimitiveComponent* OtherComp, FVector NormalImpulse, const FHitResult& Hit);
 };
